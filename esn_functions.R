@@ -5,6 +5,50 @@
 # version: early beta 0.011
 # 
 
+library(htm2txt)
+
+train_and_talk = function(training_url,neurons,turns,randomizer=123) {
+  input_string = tolower(gettxt(training_url))
+  input_string = gsub("\n"," ",input_string)
+  input_string = iconv(input_string, from = 'UTF-8', to = 'ASCII//TRANSLIT')
+  input_string = tolower(paste0(tag_on,tag_on,tag_on,input_string,collapse=' '))
+  
+  codes = unique(unlist(strsplit(input_string,'')))
+  stop.ix = which(codes=='.')
+  all = make_text_input(input_string,uniqChar=codes)
+  dataIn = all$data
+  l = nrow(dataIn)
+  if (l>1250) {
+    l = 1250
+  }
+  dataOut = dataIn[2:l,] # it's prediction (then generation), so take one off
+  dataIn = dataIn[1:(l-1),] 
+  dim(dataIn)
+  print('Making NeuroEchoBot brain... might take a minute or two...')
+  esn = build_esn(sz=neurons,in_size=length(codes),fac=1.25,input.bias=0.8,working.memory=.0,seed=randomizer)
+  info = run_esn(esn,iterations=nrow(dataIn),inputs=dataIn,passInputToHistory=F,print.iteration=F,stop.ix=NULL)
+  print('Training the brain with text input... again, might take a minute...')
+  esn$out = train_esn_readout(info$history,rbind(dataOut))
+  
+  print('NeuroEchoBot is waiting for your first message...');
+  in.text = readline(prompt="Start the convo... use a-z, ? and . to end your turn, then hit enter: ")  
+  for (i in 1:turns) {
+    all = make_text_input(tolower(in.text),uniqChar=codes)
+    esn$iterate = iterate_esn(esn,iterations = 100,
+      passInputToHistory = F,luce = Inf,initial.inputs = all$data,noise=.000,stop.ix=stop.ix)    
+    out_indices = apply(esn$iterate$readouts[(nrow(all$data)+1):nrow(esn$iterate$history),],1,which.max)
+    if (length(which(out_indices==stop.ix))==0) {
+      out_str = paste0(codes[out_indices[1:min(length(out_indices),15)]],collapse='')  
+    } else {
+      out_str = paste0(codes[out_indices[1:which(out_indices==stop.ix)[1]]],collapse='')  
+    }
+    print(paste('NeuroEchoBot says:',out_str))
+    in.text = readline(prompt="You say: ")  
+  }  
+  return(esn)
+  print('NeuroEchoBot says: Looks like we have reached the number of turns you requested. Take care. Remember me.');
+}
+
 train_and_return_esn_convo = function(convo,esn.name,codes=NULL,p) {
   
   l = length(codes)+1 # note we add 1 for "quiet"...
@@ -207,4 +251,30 @@ make_weight_matrix = function(x,y,connectivity='random') {
   }
   return(weight_matrix)
 }
+
+
+make_text_input = function(input,uniqChars=c()) {
+  # if doing the duran thing: https://stackoverflow.com/questions/13187605/error-in-tolower-invalid-multibyte-string
+  input = iconv(input,"latin1","UTF-8")
+  input = tolower(gsub('\r','',input))
+  input = tolower(gsub('\n',' ',input))
+  input = tolower(input)
+  if (length(uniqChars)==0) {
+    uniqChars = sort(unique(unlist(strsplit(input,''))))
+  }
+  dataVec = matrix(0,nrow=length(unlist(strsplit(input,''))),ncol=length(uniqChars))
+  inputChars = unlist(strsplit(input,''))
+  for (i in 1:length(inputChars)) {
+    #if (i %% 10000==0){ print(i) }
+    x = inputChars[i]
+    ix = which(x==uniqChars)
+    dataVec[i,ix] = 1
+  }  
+  return(list(data=dataVec,codes=uniqChars))
+}
+
+tag_on = "what is your name? neuroechobot. what is your name? neuroechobot. what is up? nothing much. where are you? online of course. hi there. hello. so what is new? hi there. hi. hey. yo. anyway what is new? anyway what is new? how about you? pretty good for a bot. what are you? i am a neural network of course. what's up?"
+
+
+
 
