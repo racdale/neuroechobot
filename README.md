@@ -18,6 +18,8 @@ Step 1: Install R and RStudio
 
 This part is the easiest. Go to this website and follow the instructions for your own system (Windows, etc.). Note that you have to install two things. First, install R, which is the core programming system we'll be using. Then, install RStudio, which is a very elegant user interface with point-and-click menu items to work with code in R.
 
-(https://www.rstudio.com/products/rstudio/download/)['https://www.rstudio.com/products/rstudio/download/']
+(https://www.rstudio.com/products/rstudio/download/#download)[https://www.rstudio.com/products/rstudio/download/]
+
+
 
 
