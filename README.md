@@ -8,7 +8,7 @@ If you are a COMM 131 student, please make sure to consult the CCLE instructions
 
 * Install R and RStudio programming environment so you can set NeuroEchoBot up
 * Install some libraries and Rick's code that will implement NeuroEchoBot on your computer
-* Test NeuroEchoBot under one configuration: 500 neurons
+* Test NeuroEchoBot under one configuration: 250 neurons
 * Retrain NeuroEchoBot with different network sizes
 * Investigate its limitations, and link these to our discussion of neural networks in class
 
@@ -45,7 +45,7 @@ You're ready to go. Enter the following code. This line of code is everything yo
 esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=250,turns=10)
 ```
 
-This code gives NeuroEchoBot 500 neurons and trains it on some text from the internet. It creates an interaction of 10 turns. You can change these later if you want. Give this one a try. Note that NeuroEchoBot's training is based on the URL you supply. You can use your own URL and train it differently, though warning NeuroEchoBot can get confused easily. After the exercise, feel free to investigate variations on its input (other websites, etc.). Anyway, the URL above (ai.txt) trains the network on basic interaction and questions.
+This code gives NeuroEchoBot 250 neurons and trains it on some text from the internet. It creates an interaction of 10 turns. You can change these later if you want. Give this one a try. Note that NeuroEchoBot's training is based on the URL you supply. You can use your own URL and train it differently, though warning NeuroEchoBot can get confused easily. After the exercise, feel free to investigate variations on its input (other websites, etc.). Anyway, the URL above (ai.txt) trains the network on basic interaction and questions.
 
 After you have had a 10-turn conversation with NeuroEchoBot, here's something fun. When NeuroEchoBot is trained, it automatically adjusts its connections to learn character-by-character in text data (here, a URL). This is how it learns to take turns and converse with you. Wanna see all of these connections? A simple little function:
 
