@@ -42,7 +42,7 @@ That's it! Onward to step 3.
 You're ready to go. Enter the following code. This line of code is everything you need to have an initial conversation with NeuroEchoBot. Remember it is simple. Sometimes, it may even generate gibberish. (Be warned: When it produces unstructured output, because perhaps it hasn't learned enough or well enough, sometimes recognizable words may appear, but these are just "random." If anything surprising or weird pops out, it is random and not intended by the system.) 
 
 ```r
-esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=500,turns=10)
+esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=250,turns=10)
 ```
 
 This code gives NeuroEchoBot 500 neurons and trains it on some text from the internet. It creates an interaction of 10 turns. You can change these later if you want. Give this one a try. Note that NeuroEchoBot's training is based on the URL you supply. You can use your own URL and train it differently, though warning NeuroEchoBot can get confused easily. After the exercise, feel free to investigate variations on its input (other websites, etc.). Anyway, the URL above (ai.txt) trains the network on basic interaction and questions.
@@ -64,13 +64,13 @@ esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons
 How do I do? Let us go in the other direction:
 
 ```r
-esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=1000,turns=10)
+esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=500,turns=10)
 ```
 
-Hm. Does NeuroEchoBot output a lot of noise and randomness? Here's a tip. You can "randomized" NeuroEchoBot each time you try it, to see if you can "shuffle" its connections when it is initialized. Fun fact about neural networks: Their learning can be impacted by how you set them up. Their "initial brain" is at first all random, and by chance it may more difficult to train it depending on these initial conditions. You can try the randomizer like this, and just change the numbers to shuffle it differently. Here I'm using "1423," but you can use a different number.
+Hm. Does NeuroEchoBot output a lot of noise and randomness? Here's a tip. You can "randomized" NeuroEchoBot each time you try it, to see if you can "shuffle" its connections when it is initialized. Fun fact about neural networks: Their learning can be impacted by how you set them up. Their "initial brain" is at first all random, and by chance it may more difficult to train it depending on these initial conditions. You can try the randomizer like this, and just change the numbers to shuffle it differently. Here I'm using "1423," but you can use a different number. (Note: This number is called a "seed" and its value is meaningless -- it just stands for a distinct reshuffling of the brain... so 1 and 100 and 1000 are all just different shufflings; the exact value of the randomizer is not informative.)
 
 ```r
-esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=1000,turns=10,randomizer=1423)
+esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=500,turns=10,randomizer=1423)
 ```
 
 Make note of these conversations and return to CCLE and respond to the questions asked.

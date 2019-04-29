@@ -74,7 +74,7 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123) {
   dataIn = dataIn[1:(l-1),] 
   dim(dataIn)
   print('Making NeuroEchoBot brain... might take a minute or two...')
-  esn = build_esn(sz=neurons,in_size=length(codes),fac=1.25,input.bias=0.8,working.memory=.0,seed=randomizer)
+  esn = build_esn(sz=neurons,in_size=length(codes),fac=1,input.bias=0.8,working.memory=.0,seed=randomizer)
   info = run_esn(esn,iterations=nrow(dataIn),inputs=dataIn,passInputToHistory=F,print.iteration=F,stop.ix=NULL)
   print('Training the brain with text input... again, might take a minute...')
   esn$out = train_esn_readout(info$history,rbind(dataOut))
