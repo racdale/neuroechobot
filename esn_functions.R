@@ -8,7 +8,7 @@
 library(htm2txt)
 library(igraph)
 
-graph_neuroechobot function(esn) {
+visualize_neuroechobot = function(esn) {
   if (nrow(esn$reservoir_weights)>500) {
     print('This is a large network, so this might take a minute. Hold on... plotting...')
   }
@@ -16,8 +16,16 @@ graph_neuroechobot function(esn) {
   edges_res = data.frame(w=as.vector(esn$reservoir_weights))
   edges_res$i = paste0('res',edges[,1])
   edges_res$j = paste0('res',edges[,2])
-  edges_res = edges_res[abs(edges_res$w)>.1,]
+  edges_res = edges_res[abs(edges_res$w)>sort(abs(edges_res$w),decreasing=T)[1:min(nrow(edges_res),1000)],]
   edges_res = edges_res[edges_res[,2]!=edges_res[,3],]
+  
+  edges = expand.grid(1:ncol(esn$input_weights),1:nrow(esn$reservoir_weights))
+  edges_in = data.frame(w=as.vector(esn$input_weights))
+  edges_in$i = paste0('input',edges[,1])
+  edges_in$j = paste0('res',edges[,2])
+  edges_res = rbind(edges_res,edges_in)
+  
+  
   
   edgecol = c('red','green')
   net = graph.data.frame(edges_res[,2:3],directed=F)
