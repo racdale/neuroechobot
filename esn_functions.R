@@ -6,6 +6,30 @@
 # 
 
 library(htm2txt)
+library(igraph)
+
+graph_neuroechobot(esn) {
+  if (nrow(esn$reservoir_weights)>500) {
+    print('This is a large network, so this might take a minute. Hold on... plotting...')
+  }
+  edges = expand.grid(1:nrow(esn$reservoir_weights),1:nrow(esn$reservoir_weights))
+  edges_res = data.frame(w=as.vector(esn$reservoir_weights))
+  edges_res$i = paste0('res',edges[,1])
+  edges_res$j = paste0('res',edges[,2])
+  edges_res = edges_res[abs(edges_res$w)>.1,]
+  edges_res = edges_res[edges_res[,2]!=edges_res[,3],]
+  
+  
+  
+  edgecol = c('red','green')
+  net = graph.data.frame(edges_res[,2:3],directed=F)
+  plot(net,vertex.shape='circle',vertex.size=4,vertex.color='black',layout=layout.auto,vertex.label='',
+       vertex.label.color='black',vertex.label.cex=1,vertex.label.family='Arial',
+       vertex.label.font=2,edge.width=abs(edges_res$w*5),edge.color=edgecol[1*(edges_res$w>0)+1])
+  print('I am a recurrent neural network. You can see the positive and negative connections in my brain. My brain activity swirls around. Some of these connections have been trained by the text exposure you gave me. You can see input and output here too is in the form of characters.')
+}
+
+
 
 train_and_talk = function(training_url,neurons,turns,randomizer=123) {
   input_string = tolower(gettxt(training_url))
@@ -45,8 +69,8 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123) {
     print(paste('NeuroEchoBot says:',out_str))
     in.text = readline(prompt="You say: ")  
   }  
+  print('NeuroEchoBot says: we have reached the number of turns you requested. take care. remember me.');
   return(esn)
-  print('NeuroEchoBot says: Looks like we have reached the number of turns you requested. Take care. Remember me.');
 }
 
 train_and_return_esn_convo = function(convo,esn.name,codes=NULL,p) {
