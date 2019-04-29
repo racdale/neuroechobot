@@ -9,7 +9,7 @@ library(htm2txt)
 library(igraph)
 
 visualize_neuroechobot = function(esn) {
-  if (nrow(esn$reservoir_weights)>500) {
+  if (nrow(esn$reservoir_weights)>100) {
     print('This is a large network, so this might take a minute. Hold on... plotting...')
   }
   edges = expand.grid(1:nrow(esn$reservoir_weights),1:nrow(esn$reservoir_weights))
@@ -25,14 +25,33 @@ visualize_neuroechobot = function(esn) {
   edges_in$j = paste0('res',edges[,2])
   edges_res = rbind(edges_res,edges_in)
   
+  edges = expand.grid(1:nrow(esn$out$readout_weights),1:nrow(esn$reservoir_weights))
+  edges_out = data.frame(w=as.vector(esn$out$readout_weights))
+  edges_out$i = paste0('output',edges[,1])
+  edges_out$j = paste0('res',edges[,2])
+  edges_res = rbind(edges_res,edges_out)
   
-  
-  edgecol = c('red','green')
+  edgecol = c('red','green') #edgecol[1*(edges_res$w>0)+1]
   net = graph.data.frame(edges_res[,2:3],directed=F)
-  plot(net,vertex.shape='circle',vertex.size=4,vertex.color='black',layout=layout.auto,vertex.label='',
+  lo = layout.fruchterman.reingold(net)
+  
+  lo[substr(names(V(net)),1,3)=='inp',1]=min(lo[,1])-2
+  lo[substr(names(V(net)),1,3)=='inp',2]=seq(from=min(lo[,2]),to=max(lo[,2]),length=sum(substr(names(V(net)),1,3)=='inp'))
+  
+  lo[substr(names(V(net)),1,3)=='out',1]=max(lo[,1])+2
+  lo[substr(names(V(net)),1,3)=='out',2]=seq(from=min(lo[,2]),to=max(lo[,2]),length=sum(substr(names(V(net)),1,3)=='out'))
+  
+  abs_w = edges_res$w
+  scaled_w = (abs_w-min(abs_w))/(max(abs_w)-min(abs_w))
+  cols = rgb(1-scaled_w,scaled_w,0)
+  
+  plot(net,layout=lo,vertex.shape='circle',vertex.size=4,vertex.color='black',layout=layout.auto,vertex.label='',
        vertex.label.color='black',vertex.label.cex=1,vertex.label.family='Arial',
-       vertex.label.font=2,edge.width=abs(edges_res$w*5),edge.color=edgecol[1*(edges_res$w>0)+1])
-  print('I am a recurrent neural network. You can see the positive and negative connections in my brain. My brain activity swirls around. Some of these connections have been trained by the text exposure you gave me. You can see input and output here too is in the form of characters.')
+       vertex.label.font=2,edge.width=abs(edges_res$w*5),edge.color=cols,edge.arrow.size=0.5)
+  text(-1,1.1,'input (letters)',cex=1)
+  text(1,1.1,'output (letters)',cex=1)
+  text(0,1.1,paste0('neuroechobot "brain" (',nrow(esn$reservoir_weights),' neurons)',collapse=''),cex=1)
+  print('I am a recurrent neural network. You can see the positive and negative connections in my brain. My brain activity swirls around. Some of these connections have been trained by the text exposure you gave me. You can see input and output here too is in the form of characters. I have learned to process your input, and then generate output, with the same array of characters. There is more detail underlying this plot of course, and this is just an illustration.')
 }
 
 
