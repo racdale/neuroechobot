@@ -67,7 +67,14 @@ How do I do? Let us go in the other direction:
 esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=1000,turns=10)
 ```
 
+Hm. Does NeuroEchoBot output a lot of noise and randomness? Here's a tip. You can "randomized" NeuroEchoBot each time you try it, to see if you can "shuffle" its connections when it is initialized. Fun fact about neural networks: Their learning can be impacted by how you set them up. Their "initial brain" is at first all random, and by chance it may more difficult to train it depending on these initial conditions. You can try the randomizer like this, and just change the numbers to shuffle it differently. Here I'm using "1423," but you can use a different number.
+
+```r
+esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=1000,turns=10,randomizer=1423)
+```
+
 Make note of these conversations and return to CCLE and respond to the questions asked.
+
 
 
 
