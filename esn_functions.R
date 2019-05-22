@@ -56,7 +56,12 @@ visualize_neuroechobot = function(esn) {
 
 
 
-train_and_talk = function(training_url,neurons,turns,randomizer=123) {
+train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text_length=1250,chaos_factor=1.25,pretrain=T) {
+  if (!pretrain) {
+    tag_on = '';
+  } else {
+    tag_on = "what is your name? neuroechobot. what is your name? neuroechobot. what is up? nothing much. where are you? online of course. hi there. hello. so what is new? hi there. hi. hey. yo. anyway what is new? anyway what is new? how about you? pretty good for a bot. what are you? i am a neural network of course. what's up?"
+  }
   input_string = tolower(gettxt(training_url))
   input_string = gsub("\n"," ",input_string)
   input_string = iconv(input_string, from = 'UTF-8', to = 'ASCII//TRANSLIT')
@@ -67,14 +72,14 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123) {
   all = make_text_input(input_string,uniqChar=codes)
   dataIn = all$data
   l = nrow(dataIn)
-  if (l>1250) {
-    l = 1250
+  if (l>maximum_text_length) {
+    l = maximum_text_length
   }
   dataOut = dataIn[2:l,] # it's prediction (then generation), so take one off
   dataIn = dataIn[1:(l-1),] 
   dim(dataIn)
   print('Making NeuroEchoBot brain... might take a minute or two...')
-  esn = build_esn(sz=neurons,in_size=length(codes),fac=1,input.bias=0.8,working.memory=.0,seed=randomizer)
+  esn = build_esn(sz=neurons,in_size=length(codes),fac=chaos_factor,input.bias=0.8,working.memory=.0,seed=randomizer)
   info = run_esn(esn,iterations=nrow(dataIn),inputs=dataIn,passInputToHistory=F,print.iteration=F,stop.ix=NULL)
   print('Training the brain with text input... again, might take a minute...')
   esn$out = train_esn_readout(info$history,rbind(dataOut))
@@ -322,7 +327,6 @@ make_text_input = function(input,uniqChars=c()) {
   return(list(data=dataVec,codes=uniqChars))
 }
 
-tag_on = "what is your name? neuroechobot. what is your name? neuroechobot. what is up? nothing much. where are you? online of course. hi there. hello. so what is new? hi there. hi. hey. yo. anyway what is new? anyway what is new? how about you? pretty good for a bot. what are you? i am a neural network of course. what's up?"
 
 
 
