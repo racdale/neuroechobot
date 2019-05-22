@@ -60,7 +60,7 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text
   if (!pretrain) {
     tag_on = '';
   } else {
-    tag_on = "what is your name? neuroechobot. what is your name? neuroechobot. what is up? nothing much. where are you? online of course. hi there. hello. so what is new? hi there. hi. hey. yo. anyway what is new? anyway what is new? how about you? pretty good for a bot. what are you? i am a neural network of course. what's up?"
+    tag_on = "hello. hello. hey. hi. what is your name? neuroechobot. what is your name? neuroechobot. what is up? nothing much. where are you? online of course. hi there. hello. so what is new? hi there. hi. hey. yo. anyway what is new? anyway what is new? how about you? pretty good for a bot. what are you? i am a neural network of course. what's up?"
   }
   input_string = tolower(gettxt(training_url))
   input_string = gsub("\n"," ",input_string)
