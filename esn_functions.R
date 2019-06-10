@@ -56,7 +56,7 @@ visualize_neuroechobot = function(esn) {
 
 
 
-train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text_length=1250,chaos_factor=1.25,pretrain=T) {
+train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text_length=1250,chaos_factor=1.25,pretrain=T,iconv_conv=F) {
   if (!pretrain) {
     tag_on = '';
   } else {
@@ -64,8 +64,11 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text
   }
   input_string = tolower(gettxt(training_url))
   input_string = gsub("\n"," ",input_string)
-  input_string = iconv(input_string, from = 'UTF-8', to = 'ASCII//TRANSLIT')
+  if (iconv_conv) {
+    input_string = iconv(input_string, from = 'UTF-8', to = 'ASCII//TRANSLIT')
+  }
   input_string = tolower(paste0(tag_on,tag_on,tag_on,input_string,collapse=' '))
+  print(paste0("***Training on the following input***: '",input_string,"'"))
   
   codes = unique(unlist(strsplit(input_string,'')))
   stop.ix = which(codes=='.')
