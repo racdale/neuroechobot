@@ -72,7 +72,7 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text
   
   codes = unique(unlist(strsplit(input_string,'')))
   stop.ix = which(codes=='.')
-  all = make_text_input(input_string,uniqChar=codes)
+  all = make_text_input(input_string,uniqChar=codes,iconv_conv=iconv_conv)
   dataIn = all$data
   l = nrow(dataIn)
   if (l>maximum_text_length) {
@@ -90,7 +90,7 @@ train_and_talk = function(training_url,neurons,turns,randomizer=123,maximum_text
   print('NeuroEchoBot is waiting for your first message...');
   in.text = readline(prompt="Start the convo... use a-z, ? and . to end your turn, then hit enter: ")  
   for (i in 1:turns) {
-    all = make_text_input(tolower(in.text),uniqChar=codes)
+    all = make_text_input(tolower(in.text),uniqChar=codes,iconv_conv=iconv_conv)
     esn$iterate = iterate_esn(esn,iterations = 100,
       passInputToHistory = F,luce = Inf,initial.inputs = all$data,noise=.000,stop.ix=stop.ix)    
     out_indices = apply(esn$iterate$readouts[(nrow(all$data)+1):nrow(esn$iterate$history),],1,which.max)
@@ -310,9 +310,11 @@ make_weight_matrix = function(x,y,connectivity='random') {
 }
 
 
-make_text_input = function(input,uniqChars=c()) {
+make_text_input = function(input,uniqChars=c(),iconv_conv=F) {
   # if doing the duran thing: https://stackoverflow.com/questions/13187605/error-in-tolower-invalid-multibyte-string
-  input = iconv(input,"latin1","UTF-8")
+  if (iconv_conv) {
+    input = iconv(input,"latin1","UTF-8")
+  }
   input = tolower(gsub('\r','',input))
   input = tolower(gsub('\n',' ',input))
   input = tolower(input)
