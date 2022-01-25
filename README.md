@@ -1,8 +1,10 @@
 # NeuroEchoBot
 
-## Update (5/21/2019)
+## Update (1/25/2022)
 
-I have now expanded the options you have to play with NeuroEchoBot. Here are some examples. They permit you to change how chaotic NeuroEchoBot is, how much training you give it, etc.
+The main approach to using NeuroEchoBot is presented below, and please note that you have to install R and RStudio first. This requires you to download R (a programming language) then RStudio (a nice interface for using it). It is completely free and mostly point-and-click design -- we'll just try our hand at a few simple lines of code.
+
+Anyway, after first setting up NeuroEchoBot, I then expanded the options you have to play with NeuroEchoBot. Here are some examples. They permit you to change how chaotic NeuroEchoBot is, how much training you give it, etc. This little preamble is for those who wish to do a bit more after the main exercise (see below).
 
 ```r
 esn = train_and_talk(training_url='YOUR_URL',neurons=500,turns=3,randomizer=123,maximum_text_length=1250,chaos_factor=1.25,pretrain=TRUE)
@@ -10,7 +12,7 @@ esn = train_and_talk(training_url='YOUR_URL',neurons=500,turns=3,randomizer=123,
 
 This line takes your `training_url` (text you feed NeuroEchoBot) and trains it using 500 `neurons` (in its "brain"), and initializes a 3-turn conversation (`turns`). The training is restricted to only 1250 characters (`maximum_text_length`), and pretrains NeuroEchoBot with some greetings material in English (set this to `FALSE` to turn it off). The `chaos_factor` factor determines how chaotic NeuroEchoBot's brain behaves. The number 1.0 is the standard value. Anything below this (e.g., 0.5) will be very regular and unchaotic; anything above one (e.g., 1.25 above) will force NeuroEchoBot to be more chaotic. Feel free to play around with this new version!
 
-## Prior Exercise:
+## Main Lab #2 Exercise:
 
 NeuroEchoBot is designed to illustrate some basic ideas about neural network structure, training, and performance in the domain of interpersonal language and communication. It is currently being used for COMM 131 at UCLA, a class on computer models of communicators, like chatbots and so on.
 
