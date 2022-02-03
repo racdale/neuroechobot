@@ -53,7 +53,7 @@ That's it! Onward to step 3.
 
 ## Step 3: Test NeuroEchoBot out
 
-You're ready to go. Enter the following code. This line of code is everything you need to have an initial conversation with NeuroEchoBot. Remember it is simple. Sometimes, it may even generate gibberish. (*Be warned: When it produces unstructured output, because perhaps it hasn't learned enough or well enough, sometimes recognizable words may appear, but these are just "random." If anything surprising or weird pops out, it is random and not intended by the system. Because it's random, it could appear profane, but very rarely. You've been warned.*) 
+You're ready to go. Enter the following code. This line of code is everything you need to have an initial conversation with NeuroEchoBot. Remember it is simple. Sometimes, it may even generate gibberish. (*Be warned: When it produces unstructured output, because perhaps it hasn't learned enough or well enough, sometimes recognizable words may appear, but these are just "random." If anything surprising or weird pops out, it is random and not intended by the system. Because it's random, it could appear silly or even profane, but it is unlikely. This is an important note so you are aware of the "stochasticity" of NeuroEchoBot, an intrinsic feature of this neural network setup. If you have concerns about this randomness, reminder that it is not required to choose this lab for the class.*) 
 
 ```r
 esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=250,turns=10)
