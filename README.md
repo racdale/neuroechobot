@@ -89,9 +89,11 @@ esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons
 
 Make note of these conversations and return to Bruin Learn and respond to the questions asked.
 
+** **
+
 **Optional reading**
 
-I have published a kind of primer for the type of neural network we're working with here. I share this in case you are interested in its inner-workings.
+I have published a kind of primer for the type of neural network we're working with here. Though we can understand NeuroEchoBot in terms of the concepts covered in class, I share this in case you are interested in a more detailed summary.
 
 Dale, R. & Kello, C. T. (2018). "How do humans make sense?" Multiscale dynamics and emergent meaning. *New Ideas in Psychology*, *50*, 61-72. [PDF](https://co-mind.org/rdmaterials/php.cv/pdfs/article/dale_kello_newideas.pdf)
 
