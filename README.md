@@ -87,7 +87,13 @@ Hm. Does NeuroEchoBot output a lot of noise and randomness? Here's a tip. You ca
 esn = train_and_talk(training_url='https://co-mind.org/bot-maker/ai.txt',neurons=500,turns=10,randomizer=1423)
 ```
 
-Make note of these conversations and return to CCLE and respond to the questions asked.
+Make note of these conversations and return to Bruin Learn and respond to the questions asked.
+
+*Optional reading*
+
+I have published a kind of primer for the type of neural network we're working with here. I share this in case you are interested in its inner-workings.
+
+Dale, R. & Kello, C. T. (2018). "How do humans make sense?" Multiscale dynamics and emergent meaning. New Ideas in Psychology, 50, 61-72. [https://co-mind.org/rdmaterials/php.cv/pdfs/article/dale_kello_newideas.pdf](PDF)
 
 
 
