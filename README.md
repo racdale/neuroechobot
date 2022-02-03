@@ -18,7 +18,7 @@ NeuroEchoBot is designed to illustrate some basic ideas about neural network str
 
 It should be noted that the name of this system is apt. It is a very simple neural network bot that mostly echoes back common aspects of its training. However it is able to engage in elementary turn-taking, and you can train it and re-train it under different conditions to see what makes it work best.
 
-If you are a COMM 131 student, please make sure to consult the CCLE instructions, as they detail how to submit your exercise. If you wish to continue, our goals will be the following:
+If you are a COMM 131 student, please make sure to consult the Bruin Learn instructions, as they detail how to submit your exercise. If you wish to continue, our goals will be the following:
 
 * Install R and RStudio programming environment so you can set NeuroEchoBot up
 * Install some libraries and Rick's code that will implement NeuroEchoBot on your computer
@@ -93,7 +93,7 @@ Make note of these conversations and return to Bruin Learn and respond to the qu
 
 I have published a kind of primer for the type of neural network we're working with here. I share this in case you are interested in its inner-workings.
 
-Dale, R. & Kello, C. T. (2018). "How do humans make sense?" Multiscale dynamics and emergent meaning. New Ideas in Psychology, 50, 61-72. [https://co-mind.org/rdmaterials/php.cv/pdfs/article/dale_kello_newideas.pdf](PDF)
+Dale, R. & Kello, C. T. (2018). "How do humans make sense?" Multiscale dynamics and emergent meaning. New Ideas in Psychology, 50, 61-72. [PDF](https://co-mind.org/rdmaterials/php.cv/pdfs/article/dale_kello_newideas.pdf)
 
 
 
